@@ -43,6 +43,7 @@
 		1BC3C47119C07BB5004D58C7 /* Facebook.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC3C46D19C07BB5004D58C7 /* Facebook.png */; };
 		1BC3C47219C07BB5004D58C7 /* LINE.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC3C46E19C07BB5004D58C7 /* LINE.png */; };
 		1BC3C47319C07BB5004D58C7 /* Twitter.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC3C46F19C07BB5004D58C7 /* Twitter.png */; };
+		1BC3C47519C07C7B004D58C7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 1BC3C47419C07C7B004D58C7 /* Default-568h@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,7 @@
 		1BC3C46D19C07BB5004D58C7 /* Facebook.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Facebook.png; sourceTree = "<group>"; };
 		1BC3C46E19C07BB5004D58C7 /* LINE.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LINE.png; sourceTree = "<group>"; };
 		1BC3C46F19C07BB5004D58C7 /* Twitter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Twitter.png; sourceTree = "<group>"; };
+		1BC3C47419C07C7B004D58C7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 		1BB1F83619B6170300CDF45F = {
 			isa = PBXGroup;
 			children = (
+				1BC3C47419C07C7B004D58C7 /* Default-568h@2x.png */,
 				1BB1F84819B6170300CDF45F /* PhotoGlass */,
 				1BB1F86719B6170300CDF45F /* PhotoGlassTests */,
 				1BB1F84119B6170300CDF45F /* Frameworks */,
@@ -324,6 +327,7 @@
 				1BB1F89B19B6181600CDF45F /* back.png in Resources */,
 				1BC3C47119C07BB5004D58C7 /* Facebook.png in Resources */,
 				1BC3C47019C07BB5004D58C7 /* blueBack.png in Resources */,
+				1BC3C47519C07C7B004D58C7 /* Default-568h@2x.png in Resources */,
 				1BB1F89C19B6181600CDF45F /* upsand.png in Resources */,
 				1BB1F85619B6170300CDF45F /* Main.storyboard in Resources */,
 				1BB1F89619B6181600CDF45F /* start1136.png in Resources */,

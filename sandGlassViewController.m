@@ -124,8 +124,6 @@
                                                                  failureBlock: nil];
                                         
                                         _albumWasFound = TRUE;
-                                        
-                      //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://homepage3.nifty.com/heartbreaker2/apps/"]];
 
                                         
                                         

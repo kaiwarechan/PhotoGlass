@@ -487,9 +487,22 @@
     
 }
 -(void)lineButton:(UIButton*)button{
-    //
-    //    NSString* postContent = [NSString stringWithFormat:@"投稿内容"];
-    //    [Line shareToLine:postContent];
+    // 投稿したい画像イメージをtmpImageへ格納する
+    UIImage *tmpImage = captureImg;
+    
+    // pasteboardの生成
+    UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+    
+    // pasteboardにpng画像をセットする
+    [pasteboard setData:UIImagePNGRepresentation(tmpImage) forPasteboardType:@"public.png"];
+    
+    // pasteboard.nameをline://msg/image/の後ろに入れてパスを生成
+    NSString *LINEUrlString = [NSString stringWithFormat:@"line://msg/image/%@", pasteboard.name];
+    
+    // URLスキームを利用してLINEのアプリケーションを起動する
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:LINEUrlString]];
 }
+
+
 
 @end
