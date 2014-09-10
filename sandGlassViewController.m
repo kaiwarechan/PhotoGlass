@@ -124,6 +124,11 @@
                                                                  failureBlock: nil];
                                         
                                         _albumWasFound = TRUE;
+                                        
+                      //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://homepage3.nifty.com/heartbreaker2/apps/"]];
+
+                                        
+                                        
                                     }
                                 }
                                 
@@ -138,10 +143,12 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
+-(void)viewDidAppear:(BOOL)animated{
+    
     [self makeImgParts];
+
 }
+
 
 -(void)makeImgParts{
     

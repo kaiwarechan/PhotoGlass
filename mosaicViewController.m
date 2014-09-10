@@ -10,6 +10,7 @@
 #import "AppDelegate.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Social/Social.h>
 
 @interface mosaicViewController ()
 {
@@ -25,13 +26,24 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-
+        
     }
     return self;
 }
 
 - (void)viewDidLoad
+
 {
+    // =========== iOSバージョンで、処理を分岐 ============
+    // iOS Version
+    NSString *iosVersion =
+    [[[UIDevice currentDevice] systemVersion] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([iosVersion floatValue] < 6.0) { // iOSのバージョンが6.0以上でないときは、ボタンを隠す
+        // Twitter,Facebook連携はiOS6.0以降
+        facebookButton.hidden = YES;
+        twitterButton.hidden = YES;
+    }
+    // ===============================================
     /* --- ステータスバー消す　---*/
     if( [ UIApplication sharedApplication ].isStatusBarHidden == NO ) {
         [ UIApplication sharedApplication ].statusBarHidden = YES;
@@ -102,15 +114,22 @@
        didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
     
     [self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
-    UIImage *backBlackView = [UIImage imageNamed:@"black.png"];
-    blackImageView= [[UIImageView alloc] initWithImage:backBlackView];
-    CGRect rect = CGRectMake(0, 10, 320, 550);
-    blackImageView.frame = rect;
-    [self.view addSubview:blackImageView];
+    UIImage *backblueView = [UIImage imageNamed:@"blueBack.png"];
+    blueImageView= [[UIImageView alloc] initWithImage:backblueView];
+    CGRect rect = CGRectMake(5, 38, 310, 482);
+    blueImageView.frame = rect;
+    [self.view addSubview:blueImageView];
     
     imgView.image = image;//選択した画像に差し替える
     [self.view bringSubviewToFront:imgView];
+    
 }
+
+- (BOOL)shouldAutorotate
+{
+    return NO; // YES:自動回転する NO:自動回転しない
+}
+
 
 #pragma mark - キャンセルしたときに呼ばれるよ
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -127,6 +146,7 @@
     //カメラロールから画像を読み取って、色情報を配列に格納して、格納後モザイクアートを作成する
     [self inputCamera];
 }
+
 
 //カメラロールから画像を読み取って、色情報を配列に格納して、格納後モザイクアートを作成する
 -(void)inputCamera{
@@ -213,6 +233,7 @@
     CFRelease(dataRef);
     
 }
+
 //画像の平均RGB値を返す
 - (UIColor *)checkColor:(UIImage *)img{
     CGImageRef  imageRef = img.CGImage;
@@ -260,6 +281,7 @@
     return averageColor;
 }
 
+
 //モザイクアートのアルゴリズム
 -(void)makeMozaiku{
     int imageWidth = imgView.image.size.width;//元画像の横のピクセル値
@@ -269,7 +291,7 @@
     for (int i=0; i<imageWidth*imageHeight; i++) {
         float min_value = 999;
         
-        NSLog(@"今=%d/%d",i+1,imageWidth*imageHeight);
+        //NSLog(@"今=%d/%d",i+1,imageWidth*imageHeight);
         for (int j=0; j<[cameraArr count]; j++) {
             int x,y;
             UIColor *pixelColor = [pixelArr objectAtIndex:i];//ピクセルの色情報
@@ -299,13 +321,10 @@
                 //表示させるためにUIImageViewを作成
                 UIImageView *imageView = [[UIImageView alloc] init];
                 //UIImageViewのサイズと位置を設定
-                imageView.frame = CGRectMake(x+10,y+140,pixelSize,pixelSize);
+                imageView.frame = CGRectMake(x+10,y+108 ,pixelSize,pixelSize);
                 imageView.image = image;
                 //画面に貼り付ける
                 [self.view addSubview:imageView];
-                
-                
-                
                 
             }
         }
@@ -313,6 +332,7 @@
     }
     
     [self save];
+    
 }
 
 - (UIImage *)captureView {
@@ -321,13 +341,14 @@
     //UIGraphicsBeginImageContext(CGRectMake(10, 48, 300, 300));
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGAffineTransform affine = CGAffineTransformMakeTranslation(-10,-140);
+    CGAffineTransform affine = CGAffineTransformMakeTranslation(-10,-108);
     CGContextConcatCTM(context, affine);
     [self.view.layer renderInContext:context];
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    captureImg = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    return img;
+    return captureImg;
 }
+
 
 -(void)save{
     ALAssetsLibrary *savelibrary = [[ALAssetsLibrary alloc] init];
@@ -351,35 +372,46 @@
         return;
     }
     
-    NSLog(@"motionEnded:");
+    //NSLog(@"motionEnded:");
     
     [self makeMosaic];
     
     UIImage *backButtonImage = [UIImage imageNamed:@"batsu.png"];
-    backButton = [[UIButton alloc] initWithFrame:CGRectMake(20, 67, 50, 50)];
+    backButton = [[UIButton alloc] initWithFrame:CGRectMake(262, 60, 25, 25)];
     
     [backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];  // 画像をセットする
     
     [backButton addTarget:self action:@selector(backButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];
     
-    //    UIImage *Facebook = [UIImage imageNamed:@"Facebook.png"];
-    //    facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(40, 431, 70, 70)];
-    //    [facebookButton setBackgroundImage:Facebook forState:UIControlStateNormal];  // 画像をセットする
-    //    [facebookButton addTarget:self action:@selector(facebookButton:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:facebookButton];
-    //
-    //    UIImage *LINE = [UIImage imageNamed:@"LINE.png"];
-    //    lineButton = [[UIButton alloc] initWithFrame:CGRectMake(125, 431, 70, 70)];
-    //    [lineButton setBackgroundImage:LINE forState:UIControlStateNormal];  // 画像をセットする
-    //    [lineButton addTarget:self action:@selector(lineButton:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:lineButton];
-    //
-    //    UIImage *Twitter = [UIImage imageNamed:@"Twitter.png"];
-    //    twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(210, 431, 70, 70)];
-    //    [twitterButton setBackgroundImage:Twitter forState:UIControlStateNormal];  // 画像をセットする
-    //    [twitterButton addTarget:self action:@selector(twitterButton:) forControlEvents:UIControlEventTouchUpInside];
-    //    [self.view addSubview:twitterButton];
+    
+    
+    UIImage *twButtonImage = [UIImage imageNamed:@"Twitter.png"];
+    twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 435, 60, 60)];
+    
+    [twitterButton setBackgroundImage:twButtonImage forState:UIControlStateNormal];  // 画像をセットする
+    
+    [twitterButton addTarget:self action:@selector(twitterButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:twitterButton];
+    
+    UIImage *fbButtonImage = [UIImage imageNamed:@"Facebook.png"];
+    facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(46, 435, 60, 60)];
+    
+    [facebookButton setBackgroundImage:fbButtonImage forState:UIControlStateNormal];  // 画像をセットする
+    
+    [facebookButton addTarget:self action:@selector(facebookButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:facebookButton];
+    
+    UIImage *lnButtonImage = [UIImage imageNamed:@"LINE.png"];
+    lineButton = [[UIButton alloc] initWithFrame:CGRectMake(216, 435, 60, 60)];
+    
+    [lineButton setBackgroundImage:lnButtonImage forState:UIControlStateNormal];  // 画像をセットする
+    
+    [lineButton addTarget:self action:@selector(lineButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:lineButton];
+    
+    
+    
     
     isAlreadyFlick = YES;
     
@@ -391,19 +423,73 @@
     cameraArr = [NSMutableArray array];//カメラロールの画像の色情報の配列
     pixelArr = [NSMutableArray array];//モザイクアートの元画像のピクセルの色情報の配列
     library = [[ALAssetsLibrary alloc] init];
-    NSLog(@"初期化したよ");
+    //NSLog(@"初期化したよ");
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+
+
+-(void)twitterButton:(UIButton*)button{
+    //ServiceTypeをTwitterに設定
+    NSString *serviceType = SLServiceTypeTwitter;
+    //Twitterが利用可能かチェック
+    if([SLComposeViewController isAvailableForServiceType:serviceType]){
+        
+        //SLComposeViewControllerを初期化・生成
+        SLComposeViewController *twitterpostVC = [[SLComposeViewController alloc] init];
+        
+        //ServiceTypeをTwitterに設定
+        twitterpostVC = [SLComposeViewController composeViewControllerForServiceType:serviceType];
+        
+        //初期テキストの設定
+        [twitterpostVC setInitialText:@"#PhotoGlass"];
+        
+        //画像の追加
+        [twitterpostVC addImage:captureImg];
+        
+        //投稿の可否         //↓ツイート編集終了時
+        [twitterpostVC setCompletionHandler:^(SLComposeViewControllerResult result){
+            if(result == SLComposeViewControllerResultDone){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"投稿を完了しました"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+            else{
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@""
+                                                                message:@"投稿できませんでした"
+                                                               delegate:nil
+                                                      cancelButtonTitle:@"OK"
+                                                      otherButtonTitles:nil];
+                [alert show];
+            }
+        }
+         ];
+        
+        
+        //SLComposeViewControllerのViewを表示
+        [self presentViewController:twitterpostVC animated:YES completion:nil];
+        
+    }
+}
+
 -(void)facebookButton:(UIButton*)button{
+    
+    SLComposeViewController *facebookPostVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeFacebook];
+    NSString* postContent = [NSString stringWithFormat:@"PhotoGlass"];
+    [facebookPostVC setInitialText:postContent];
+    //[facebookPostVC addURL:[NSURL URLWithString:@"url"]]; // URL文字列
+    [facebookPostVC addImage:captureImg];// 画像名（文字列）
+    [self presentViewController:facebookPostVC animated:YES completion:nil];
     
 }
 -(void)lineButton:(UIButton*)button{
-    
-}
--(void)twitterButton:(UIButton*)button{
-    
+    //
+    //    NSString* postContent = [NSString stringWithFormat:@"投稿内容"];
+    //    [Line shareToLine:postContent];
 }
 
 @end

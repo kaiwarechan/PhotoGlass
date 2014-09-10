@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 梶原 一葉. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
 #import "Image.h"
 #import "sandGlassViewController.h"
+#import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface mosaicViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
     
@@ -20,7 +20,7 @@
     UIButton *lineButton;
     UIButton *twitterButton;
     
-    UIImageView *blackImageView;
+    UIImageView *blueImageView;
     
     ALAssetsLibrary *library;//カメラロールから画像を取得する
     NSURL *groupURL;
@@ -32,9 +32,10 @@
     UIView *mozaikuView;
     NSData *data;
     UIImage *savedImage;
-
+    
+    UIImage *captureImg;
+    
 }
-
 
 
 @end
