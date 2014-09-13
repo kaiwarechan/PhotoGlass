@@ -35,6 +35,9 @@
     
     UIImage *captureImg;
     
+    UIImage *shake;
+    UIImageView *shakeImageView;
+    
 }
 
 

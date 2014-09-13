@@ -50,17 +50,17 @@
     backView = [[UIImageView alloc] initWithImage:back];
     backView.frame = CGRectMake(0, 0, 320, 568);
     
-    suna = [UIImage imageNamed:@"sandglass.png"];
+    suna = [UIImage imageNamed:@"sunadokei.png"];
     sunaView = [[UIImageView alloc] initWithImage:suna];
-    sunaView.frame = CGRectMake(0, 0, 320, 568);
+    sunaView.frame = CGRectMake(45, 42, 230,490);
     
-    upsand = [UIImage imageNamed:@"upsand.png"];
+    upsand = [UIImage imageNamed:@"kiiroSuna.png"];
     upsandView = [[UIImageView alloc] initWithImage:upsand];
-    upsandView.frame = CGRectMake(9, 40, 300, 491);
+    upsandView.frame = CGRectMake(58, 141, 200, 144);
     
     
     //gifアニメーション
-    UIImage* sunaImage = [UIImage animatedGIFNamed:@"suna"];
+    UIImage* sunaImage = [UIImage animatedGIFNamed:@"sand"];
     sunaImageView = [[UIImageView alloc] initWithImage:sunaImage];
     sunaImageView.frame = CGRectMake(158, 284, 5, 128);
     
@@ -179,20 +179,16 @@
              
              
              //__block int f = 0;
-             NSMutableArray *array = [[NSMutableArray alloc] init];
+             //NSMutableArray *array = [[NSMutableArray alloc] init];
              
              
-             for(int p = (int)[group numberOfAssets]-1; p >=(int)[group numberOfAssets]-71 ; p--)
+             for(int p = (int)[group numberOfAssets]-1; p >=(int)[group numberOfAssets]-42 ; p--)
                  //[group numberOfAssets]は個数、pは順番(0から始まる)→0が一番古い写真
                  
              {
                  
                  //NSLog(@"p is %d",[group numberOfAssets]);
                  
-                 /*if((int)f == 1){
-                  break;
-                  }
-                  */
                  
                  [group enumerateAssetsAtIndexes:[NSIndexSet indexSetWithIndex:p]
                                          options:0
@@ -203,13 +199,17 @@
                       NSTimeInterval  since = [assetDate timeIntervalSinceDate:begin]; //現在時刻からbeginまでの秒数
                       
                       //NSLog(@"result =============== %@",result);
-                      NSLog(@"メタデータ-------%@",[[result defaultRepresentation] metadata]);
+                      //NSLog(@"メタデータ-------%@",[[result defaultRepresentation] metadata]);
                       
-                      if(since/(60*60*24) > -30){
+                      if(since/(60*60*24) > -10){
                           
-                          //NSLog(@"since is %f",since);
+                          //NSLog(@"since is %f",since/(60*60*24));
                           
                           if (nil != result) {
+                              
+                              //NSArray *array = [[NSArray alloc] init];
+                              
+                              
                               
                               ALAssetRepresentation *assetRespresentation = [result defaultRepresentation];
                               
@@ -219,302 +219,210 @@
                               
                               int i = (int)[group numberOfAssets]-p-1; //最新の写真が0
                               int x = 0; //x座標
+                              int y = 0;
+                              
+                              
                               
                               double n = pow(-1, i);  //-1をi乗した数をresultにいれる
                               
-                              if(30< i && i <= 32) //6段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-26; i <=(int)[group numberOfAssets]-p-26; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 406, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(32< i && i <= 34) //6段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-30; i <=(int)[group numberOfAssets]-p-30; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 417, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(34< i && i <= 36) //6段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-34; i <=(int)[group numberOfAssets]-p-34; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 423, 24, 24)];
-                                  }
-                              }
-                              else if(36< i && i <= 38) //6段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-38; i <=(int)[group numberOfAssets]-p-38; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 427, 24, 24)];
-                                  }
-                              }
-                              
-                              
-                              else if(38< i && i <= 40) //7段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-34; i <=(int)[group numberOfAssets]-p-34; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 430, 24, 24)];
-                                  }
-                              }
-                              
-                              
-                              else if(40< i && i <= 42) //7段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-38; i <=(int)[group numberOfAssets]-p-38; i++)
-                                  {
-                                      x = 136 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 441, 24, 24)];
-                                  }
-                              }
-                              
-                              
-                              else if(42< i && i <= 44) //7段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 447, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(44< i && i <= 46) //7段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-46; i <=(int)[group numberOfAssets]-p-46; i++)
-                                  {
-                                      x = 137 +24 *(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 451, 24, 24)];
-                                  }
-                              }
-                              
-                              
-                              else if(46< i && i <= 48) //8段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
-                                  {
-                                      //NSLog(@"i is %d",(-1)^i);
-                                      
-                                      x = 138.7 +23.3 *(i/2 + i%2)*n;
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 454, 24, 24)];
-                                  }
+                              if(i==35){
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 505, 24, 24)];
                                   
+                                  NSLog(@"i %d",i);
                               }
                               
-                              
-                              
-                              
-                              else if(48< i && i <= 50) //8段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-46; i <=(int)[group numberOfAssets]-p-46; i++)
+                              else if(35<i && i<=39){
+                                  for (i = (int)[group numberOfAssets]-p-36; i <=(int)[group numberOfAssets]-p-36; i++)
                                   {
-                                      //NSLog(@"i is %d",(-1)^i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 137 +24 *(i/2 + i%2)*n;
+                                      x = 148 +24 *(i/2 + i%2)*n;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 465, 24, 24)];
-                                  }
-                                  
-                              }
-                              
-                              
-                              else if(50< i && i <= 52) //8段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-50; i <=(int)[group numberOfAssets]-p-50; i++)
-                                  {
-                                      //NSLog(@"i is %d",(-1)^i);
-                                      
-                                      x = 137 +24 *(i/2 + i%2)*n;
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
                                       
                                       
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 471, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 505, 24, 24)];
                                   }
                               }
                               
-                              else if(52< i && i <= 54) //8段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-54; i <=(int)[group numberOfAssets]-p-54; i++)
+                              else if(39<i && i<=41){
+                                  for (i = (int)[group numberOfAssets]-p-36; i <=(int)[group numberOfAssets]-p-36; i++)
                                   {
-                                      //NSLog(@"i is %d",(-1)^i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 137 +24 *(i/2 + i%2)*n;
+                                      x = 148 +24 *(i/2 + i%2)*n;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 475, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(54 < i && i <= 56) //9段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-50; i <=(int)[group numberOfAssets]-p-50; i++)
-                                  {
-                                      //NSLog(@"i is %d",i);
-                                      
-                                      x = 138 +23.5*(i/2 + i%2)*n;
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 478, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(56 < i && i <= 58) //9段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-54; i <=(int)[group numberOfAssets]-p-54; i++)
-                                  {
-                                      //NSLog(@"i is %d",i);
-                                      
-                                      x = 137 +24*(i/2 + i%2)*n;
-                                      
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 489, 24, 24)];
-                                  }
-                              }
-                              
-                              else if(58 < i && i <= 60) //9段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-58; i <=(int)[group numberOfAssets]-p-58; i++)
-                                  {
-                                      NSLog(@"i is %d",i);
-                                      
-                                      x = 137 +24*(i/2 + i%2)*n;
-                                      
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
                                       
                                       picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 495, 24, 24)];
                                   }
-                                  
                               }
                               
-                              else if(60 < i && i <=62) //9段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-62; i <=(int)[group numberOfAssets]-p-62; i++)
+                              
+                              
+                              
+                              
+                              
+                              
+                              //2段目
+                              
+                              else if(i==30){
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 475, 24, 24)];
+                                  NSLog(@"i %d",i);
+                              }
+                              
+                              else if(30<i && i<=34){
+                                  for (i = (int)[group numberOfAssets]-p-31; i <=(int)[group numberOfAssets]-p-31; i++)
                                   {
-                                      //NSLog(@"i is %d",i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 137 +24*(i/2 + i%2)*n;
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      y = 478+(i-1)/2*3;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 499, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
-                                  
                               }
                               
-                              else if(62 < i && i <=64) //10段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-58; i <=(int)[group numberOfAssets]-p-58; i++)
+                              
+                              
+                              
+                              //3段目
+                              else if(i==21){
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 450, 24, 24)];
+                                  NSLog(@"i %d",i);
+                              }
+                              
+                              else if(21<i && i<=25){
+                                  for (i = (int)[group numberOfAssets]-p-22; i <=(int)[group numberOfAssets]-p-22; i++)
                                   {
-                                      //NSLog(@"i is %d",i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 138+22.8*(i/2 + i%2)*n;
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      y = 452+(i-1)/2*5;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 502, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
-                                  
                               }
-                              else if(64 < i && i <= 66) //10段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-62; i <=(int)[group numberOfAssets]-p-62; i++)
+                              else if(25<i && i<=27){
+                                  for (i = (int)[group numberOfAssets]-p-22; i <=(int)[group numberOfAssets]-p-22; i++)
                                   {
-                                      //NSLog(@"i is %d",i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 137 +23.5*(i/2 + i%2)*n;
+                                      x = 148 +23 *(i/2 + i%2)*n;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 513, 24, 24)];
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 469, 24, 24)];
                                   }
-                                  
                               }
-                              
-                              
-                              
-                              else if(66 < i && i <= 68) //10段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-66; i <=(int)[group numberOfAssets]-p-66; i++)
+                              else if(27<i && i<=29){
+                                  for (i = (int)[group numberOfAssets]-p-22; i <=(int)[group numberOfAssets]-p-22; i++)
                                   {
-                                      //NSLog(@"i is %d",i);
+                                      NSLog(@"i %d",i);
                                       
-                                      x = 137  +24*(i/2 + i%2)*n;
+                                      x= 148 +23 *(i/2 + i%2)*n;
                                       
-                                      
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 520, 24, 24)];
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 479, 24, 24)];
                                   }
-                                  
                               }
                               
                               
-                              else if(68 < i && i <= 70) //10段目
-                              {
-                                  for (i = (int)[group numberOfAssets]-p-70; i <=(int)[group numberOfAssets]-p-70; i++)
+                              
+                              
+                              
+                              
+                              //4段目
+                              else if(i==12){
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 424, 24, 24)];
+                                  NSLog(@"i %d",i);
+                              }
+                              else if(12<i && i<=16){
+                                  for (i = (int)[group numberOfAssets]-p-13; i <=(int)[group numberOfAssets]-p-13; i++)
                                   {
-                                      x = 137  +24*(i/2 + i%2)*n;
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      y = 427+(i-1)/2*5;
+                                      NSLog(@"y %d",y);
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      // [array addObject:[NSNumber numberWithInteger:y]];
                                       
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 400, 24, 24)];
                                       
-                                      [array addObject:[NSNumber numberWithInteger:x]];
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 523, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
-                                  
                               }
-                              //else if(64<i&&i<=66)
-                              
-                              
-                              else{
-                                  return;
+                              else if(16<i && i<=18){
+                                  for (i = (int)[group numberOfAssets]-p-13; i <=(int)[group numberOfAssets]-p-13; i++)
+                                  {
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +23 *(i/2 + i%2)*n;
+                                      
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 444, 24, 24)];
+                                  }
                               }
                               
+                              else if(18<i && i<=20){
+                                  for (i = (int)[group numberOfAssets]-p-13; i <=(int)[group numberOfAssets]-p-13; i++){
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      
+                                      
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 454, 24, 24)];
+                                  }
+                              }
+                              
+                              
+                              
+                              
+                              
+                              
+                              //５段目
+                              else if(i==3){
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 399, 24, 24)];
+                                  NSLog(@"i %d",i);
+                              }
+                              
+                              else if(3<i && i<=7){
+                                  for (i = (int)[group numberOfAssets]-p-4; i <=(int)[group numberOfAssets]-p-4; i++)
+                                  {
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      y = 402+(i-1)/2*5;
+                                      NSLog(@"y %d",y);
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      // [array addObject:[NSNumber numberWithInteger:y]];
+                                      
+                                      
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
+                                  }
+                              }
+                              
+                              else if(7<i && i<=9){
+                                  for (i = (int)[group numberOfAssets]-p-4; i <=(int)[group numberOfAssets]-p-4; i++)
+                                  {
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +23 *(i/2 + i%2)*n;
+                                      
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 418, 24, 24)];
+                                  }
+                              }
+                              
+                              else if(9<i && i<=11){
+                                  for (i = (int)[group numberOfAssets]-p-4; i <=(int)[group numberOfAssets]-p-4; i++)
+                                  {
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      
+                                      //[array addObject:[NSNumber numberWithInteger:x]];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 428, 24, 24)];
+                                  }
+                              }
                               
                               
                               [self.view addSubview:picImgView];
@@ -568,7 +476,7 @@
 //端末の向きの取得
 - (void)didRotate:(NSNotification *)notification
 {
-    UIDeviceOrientation orientation = [[notification object] orientation];
+    UIDeviceOrientation orientation = (UIDeviceOrientation)[[notification object] orientation];
     
     if (orientation==UIDeviceOrientationPortraitUpsideDown) {
         _orientation = @"縦(上下逆)";

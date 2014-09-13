@@ -120,6 +120,12 @@
     blueImageView.frame = rect;
     [self.view addSubview:blueImageView];
     
+    UIImage *shakeImage = [UIImage imageNamed:@"shake.png"];
+    shakeImageView = [[UIImageView alloc] initWithImage:shakeImage];
+    CGRect shakeRect = CGRectMake(40, 416, 240, 62);
+    shakeImageView.frame = shakeRect;
+    [self.view addSubview:shakeImageView];
+    
     imgView.image = image;//選択した画像に差し替える
     [self.view bringSubviewToFront:imgView];
     
@@ -145,6 +151,8 @@
     [self pixelRGB:imgView.image];
     //カメラロールから画像を読み取って、色情報を配列に格納して、格納後モザイクアートを作成する
     [self inputCamera];
+    
+    shakeImageView.hidden = YES;
 }
 
 
@@ -475,6 +483,8 @@
         
     }
 }
+
+
 
 -(void)facebookButton:(UIButton*)button{
     
