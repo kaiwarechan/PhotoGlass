@@ -10,6 +10,7 @@
 #import "sandGlassViewController.h"
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <AudioToolbox/AudioServices.h>
 
 @interface mosaicViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
     

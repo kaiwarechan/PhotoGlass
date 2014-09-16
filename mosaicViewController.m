@@ -11,6 +11,7 @@
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 #import <Social/Social.h>
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface mosaicViewController ()
 {
@@ -299,7 +300,7 @@
     for (int i=0; i<imageWidth*imageHeight; i++) {
         float min_value = 999;
         
-        //NSLog(@"今=%d/%d",i+1,imageWidth*imageHeight);
+        NSLog(@"今=%d/%d",i+1,imageWidth*imageHeight);
         for (int j=0; j<[cameraArr count]; j++) {
             int x,y;
             UIColor *pixelColor = [pixelArr objectAtIndex:i];//ピクセルの色情報
@@ -334,10 +335,15 @@
                 //画面に貼り付ける
                 [self.view addSubview:imageView];
                 
+                
+                
+                
             }
         }
         
     }
+    
+    
     
     [self save];
     
@@ -374,13 +380,15 @@
 -(BOOL)canBecomeFirstResponder { return YES; }
 
 //モーション終了時に実行
-- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+- (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
+{
+    NSLog(@"motionBegan");
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
     if (isAlreadyFlick) {
         return;
     }
-    
-    //NSLog(@"motionEnded:");
     
     [self makeMosaic];
     
