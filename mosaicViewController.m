@@ -18,6 +18,9 @@
     AppDelegate *delegate;
     
     BOOL isAlreadyFlick;
+    
+    // 追加した画像を一時的に保存しておくためのリスト
+    NSMutableArray *imageViewList;
 }
 @end
 
@@ -27,7 +30,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        imageViewList = [NSMutableArray array];
     }
     return self;
 }
@@ -35,6 +38,10 @@
 - (void)viewDidLoad
 
 {
+    
+    // 前に保存してあった ImageView を Subview から取り除く。
+    [imageViewList makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [imageViewList removeAllObjects];
     // =========== iOSバージョンで、処理を分岐 ============
     // iOS Version
     NSString *iosVersion =
@@ -115,11 +122,11 @@
        didFinishPickingImage:(UIImage*)image editingInfo:(NSDictionary*)editingInfo{
     
     [self dismissModalViewControllerAnimated:YES];  // モーダルビューを閉じる
-    UIImage *backblueView = [UIImage imageNamed:@"blueBack.png"];
-    blueImageView= [[UIImageView alloc] initWithImage:backblueView];
-    CGRect rect = CGRectMake(5, 38, 310, 482);
-    blueImageView.frame = rect;
-    [self.view addSubview:blueImageView];
+//    UIImage *backblueView = [UIImage imageNamed:@"blueBack.png"];
+//    blueImageView= [[UIImageView alloc] initWithImage:backblueView];
+//    CGRect rect = CGRectMake(5, 38, 310, 482);
+//    blueImageView.frame = rect;
+//    [self.view addSubview:blueImageView];
     
     UIImage *shakeImage = [UIImage imageNamed:@"shake.png"];
     shakeImageView = [[UIImageView alloc] initWithImage:shakeImage];
@@ -335,17 +342,26 @@
                 //画面に貼り付ける
                 [self.view addSubview:imageView];
                 
-                
-                
-                
+                // 後々取り除くために保存
+                [imageViewList addObject:imageView];
             }
         }
         
     }
     
-    
+    // Sub view がいくつあるか表示する
+    NSLog(@"Number of subviews: %lu", (unsigned long)self.view.subviews.count);
     
     [self save];
+    
+    // Cross Dissolve のアニメーションを加える。
+    [UIView transitionWithView:self.view
+          duration:3
+          options:UIViewAnimationOptionTransitionCrossDissolve
+          animations:^{
+              [self save];
+              }
+         completion:nil];
     
 }
 
@@ -382,13 +398,16 @@
 //モーション終了時に実行
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
-    NSLog(@"motionBegan");
+   
     
-    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    
     
     if (isAlreadyFlick) {
         return;
     }
+     NSLog(@"motionBegan");
+    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     
     [self makeMosaic];
     

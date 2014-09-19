@@ -12,11 +12,22 @@
 #import "UIImage+GIF.h"
 
 @interface sandGlassViewController ()
-
 @end
 
 @implementation sandGlassViewController
+{
+        NSMutableArray *picImgViewArray;
+    }
 
+-(id)init
+{
+        picImgViewArray = [NSMutableArray array];
+    
+        return self;
+    }
+
+
+NSMutableArray *array;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -31,9 +42,9 @@
     [super viewDidLoad];
 
     /* --- ステータスバー消す　---*/
-    if( [ UIApplication sharedApplication ].isStatusBarHidden == NO ) {
+    //if( [ UIApplication sharedApplication ].isStatusBarHidden == YES ) {
         [ UIApplication sharedApplication ].statusBarHidden = YES;
-    }
+   // }
     
     
     /* ---　背景画像設定 --- */
@@ -89,7 +100,7 @@
     
     //UIImagePickerController
     _pickerController =[[UIImagePickerController alloc] init];
-    _pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]){_pickerController.sourceType = UIImagePickerControllerSourceTypeCamera;}
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
     
@@ -162,6 +173,24 @@
     }
     
     
+    
+        // Remove previous image views.
+    for (int i = (int)picImgViewArray.count - 1; i >= 0; i--) {
+                [picImgViewArray[i] removeFromSuperview];
+        }
+    [picImgViewArray removeAllObjects];
+    
+    
+    if(array == nil){
+        array = [[NSMutableArray alloc]init];
+    }else{
+        for (int i =(int) array.count -1; i>= 0; i--){
+            [array[1] removeFromSuperview];
+            }
+        [array removeAllObjects];
+    }
+    
+    
     /* --- 写真 --- */
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     
@@ -171,6 +200,11 @@
          
          //NSLog(@"number %d",(int)[group numberOfAssets]);
          //NSLog(@"group is %@",group);
+//         [[self.view subviews]
+//          makeObjectsPerformSelector:@selector(removeFromSuperview)];
+         
+         
+         
          
          
          if ([[group valueForProperty:ALAssetsGroupPropertyName] isEqualToString:@"Camera Roll"])
@@ -182,7 +216,7 @@
              //NSMutableArray *array = [[NSMutableArray alloc] init];
              
              
-             for(int p = (int)[group numberOfAssets]-1; p >=(int)[group numberOfAssets]-42 ; p--)
+             for(int p = (int)[group numberOfAssets]-1; p >=(int)[group numberOfAssets]-42 && p>= 0 ; p--)
                  //[group numberOfAssets]は個数、pは順番(0から始まる)→0が一番古い写真
                  
              {
@@ -258,12 +292,6 @@
                                   }
                               }
                               
-                              
-                              
-                              
-                              
-                              
-                              
                               //2段目
                               
                               else if(i==30){
@@ -326,11 +354,6 @@
                                   }
                               }
                               
-                              
-                              
-                              
-                              
-                              
                               //4段目
                               else if(i==12){
                                   picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 424, 24, 24)];
@@ -372,11 +395,6 @@
                                       picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 454, 24, 24)];
                                   }
                               }
-                              
-                              
-                              
-                              
-                              
                               
                               //５段目
                               else if(i==3){
@@ -426,7 +444,9 @@
                               
                               
                               [self.view addSubview:picImgView];
-                              
+                            if (picImgView != nil) {
+                                [picImgViewArray addObject:picImgView];
+                            }
                               picImgView.userInteractionEnabled = YES; //タッチできるようにする
                               //TODO:image
                               picImgView.image = picImg;
