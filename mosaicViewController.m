@@ -38,6 +38,7 @@
 - (void)viewDidLoad
 
 {
+   
     
     // 前に保存してあった ImageView を Subview から取り除く。
     [imageViewList makeObjectsPerformSelector:@selector(removeFromSuperview)];
