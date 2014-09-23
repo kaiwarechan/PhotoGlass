@@ -12,47 +12,43 @@
 #import "mosaicViewController.h"
 
 
+
 @interface sandGlassViewController : UIViewController<UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAccelerometerDelegate>{
+
+
     
     UIImage *back;
+    UIImage *suna;
+    UIImage *upsand;
+    
     UIImageView *backView;
     UIImageView *picImgView;
+    UIImageView *sunaView;
+    UIImageView *sunaImageView;
+    UIImageView *sunaupImageView;
+    UIImageView *upsandView;
     
     NSDate *assetDate;
     
     NSInteger assetYear;
     NSInteger assetMonth;
     NSInteger assetDay;
-    
-    
-    UIImage *suna;
-    UIImageView *sunaView;
-    
-    UIImage *uesuna;
-    UIImageView *uesunaView;
-    
-    
     NSInteger nowYear;
     NSInteger nowMonth;
     NSInteger nowDay;
     
     NSString *AlbumSandName;
+    NSString *_AlbumName;
     NSString *_orientation;
     
-    UIImageView *sunaImageView;
-    UIImageView *sunaupImageView;
-    
-    UIImage *upsand;
-    UIImageView *upsandView;
-    
     UIImagePickerController *_pickerController;
-    ALAssetsLibrary *_library;
-    NSURL *_groupURL;
-    NSString *_AlbumName;
     
-    //アルバムが写真アプリに既にあるかどうかの判定用
-    BOOL _albumWasFound;
+    ALAssetsLibrary *_library;
+    
+    NSURL *_groupURL;
 
+    
+    
 }
 
 @end

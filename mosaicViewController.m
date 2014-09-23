@@ -38,8 +38,6 @@
 - (void)viewDidLoad
 
 {
-   
-    
     // 前に保存してあった ImageView を Subview から取り除く。
     [imageViewList makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [imageViewList removeAllObjects];
@@ -353,7 +351,7 @@
     // Sub view がいくつあるか表示する
     NSLog(@"Number of subviews: %lu", (unsigned long)self.view.subviews.count);
     
-    [self save];
+ 
     
     // Cross Dissolve のアニメーションを加える。
     [UIView transitionWithView:self.view

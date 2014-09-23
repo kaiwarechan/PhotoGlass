@@ -14,4 +14,5 @@
 
 @property (nonatomic) BOOL cameraFlag;
 
+
 @end

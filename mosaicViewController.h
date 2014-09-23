@@ -21,7 +21,12 @@
     UIButton *lineButton;
     UIButton *twitterButton;
     
-    UIImageView *blueImageView;
+    UIImage *savedImage;
+    UIImage *captureImg;
+    UIImage *shake;
+    UIView *mozaikuView;
+
+    UIImageView *shakeImageView;
     
     ALAssetsLibrary *library;//カメラロールから画像を取得する
     NSURL *groupURL;
@@ -29,16 +34,8 @@
     NSMutableArray *AlAssetsArr;//カメラロールの画像の配列
     NSMutableArray *cameraArr;//カメラロールの画像の色情報の配列
     NSMutableArray *pixelArr;//モザイクアートの元画像の、各ピクセルの色情報の配列
-    
-    UIView *mozaikuView;
+
     NSData *data;
-    UIImage *savedImage;
-    
-    UIImage *captureImg;
-    
-    UIImage *shake;
-    UIImageView *shakeImageView;
-    
 }
 
 
