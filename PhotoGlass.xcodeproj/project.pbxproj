@@ -11,6 +11,7 @@
 		1B419C9A19C0A55B00184E48 /* PhotoGlass_icon58.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B419C9719C0A55B00184E48 /* PhotoGlass_icon58.png */; };
 		1B419C9B19C0A55B00184E48 /* PhotoGlass_icon80.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B419C9819C0A55B00184E48 /* PhotoGlass_icon80.png */; };
 		1B419C9C19C0A55B00184E48 /* PhotoGlass_icon120.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B419C9919C0A55B00184E48 /* PhotoGlass_icon120.png */; };
+		1B5F376819D2B0E3005D5F94 /* WSCoachMarksView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1B5F376719D2B0E3005D5F94 /* WSCoachMarksView.m */; };
 		1B8E02A219CF1D3500584489 /* sanset.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8E02A019CF1D3500584489 /* sanset.png */; };
 		1B8E02A319CF1D3500584489 /* 砂.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1B8E02A119CF1D3500584489 /* 砂.gif */; };
 		1B8E02A519CF1ECA00584489 /* sunset.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B8E02A419CF1ECA00584489 /* sunset.png */; };
@@ -70,6 +71,8 @@
 		1B419C9719C0A55B00184E48 /* PhotoGlass_icon58.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoGlass_icon58.png; sourceTree = "<group>"; };
 		1B419C9819C0A55B00184E48 /* PhotoGlass_icon80.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoGlass_icon80.png; sourceTree = "<group>"; };
 		1B419C9919C0A55B00184E48 /* PhotoGlass_icon120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PhotoGlass_icon120.png; sourceTree = "<group>"; };
+		1B5F376619D2B0E3005D5F94 /* WSCoachMarksView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSCoachMarksView.h; sourceTree = "<group>"; };
+		1B5F376719D2B0E3005D5F94 /* WSCoachMarksView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSCoachMarksView.m; sourceTree = "<group>"; };
 		1B8E02A019CF1D3500584489 /* sanset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sanset.png; sourceTree = "<group>"; };
 		1B8E02A119CF1D3500584489 /* 砂.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "砂.gif"; sourceTree = "<group>"; };
 		1B8E02A419CF1ECA00584489 /* sunset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sunset.png; sourceTree = "<group>"; };
@@ -226,6 +229,8 @@
 		1BB1F84819B6170300CDF45F /* PhotoGlass */ = {
 			isa = PBXGroup;
 			children = (
+				1B5F376619D2B0E3005D5F94 /* WSCoachMarksView.h */,
+				1B5F376719D2B0E3005D5F94 /* WSCoachMarksView.m */,
 				1B8E02C019D1623700584489 /* ELCImagePicker */,
 				1BB1F85119B6170300CDF45F /* AppDelegate.h */,
 				1BB1F85219B6170300CDF45F /* AppDelegate.m */,
@@ -421,6 +426,7 @@
 				1BB1F87919B6178700CDF45F /* sandGlassViewController.m in Sources */,
 				1BB1F84F19B6170300CDF45F /* main.m in Sources */,
 				1BB1F88119B617CF00CDF45F /* Image.m in Sources */,
+				1B5F376819D2B0E3005D5F94 /* WSCoachMarksView.m in Sources */,
 				1B8E02B919D161D900584489 /* ELCAssetCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

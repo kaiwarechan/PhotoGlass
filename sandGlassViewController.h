@@ -46,6 +46,7 @@
     ALAssetsLibrary *_library;
     
     NSURL *_groupURL;
+  
 
     
     

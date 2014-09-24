@@ -10,6 +10,7 @@
 #import "Image.h"
 #import "mosaicViewController.h"
 #import "UIImage+GIF.h"
+#import "WSCoachMarksView.h"
 
 @interface sandGlassViewController ()
 @end
@@ -36,7 +37,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+  
     [ UIApplication sharedApplication ].statusBarHidden = YES;
  
     /* ---　背景画像設定 --- */
@@ -98,6 +99,20 @@
                                                 NSLog(@"作ったよ");
                                             }
                                       failureBlock:nil];
+    
+    WSCoachMarksView *coachMarksView;
+    
+    // コーチマークの設定内容配列を作成
+    // コーチマーク毎にカットアウトの位置（CGRect）とキャプション（NSString）のディクショナリ
+    NSArray *coachMarks = @[
+                            @{@"rect": [NSValue valueWithCGRect:(CGRect){{0,0},{0,0}}], @"caption": @"はじめまして。あなたの思い出をよみがえらせます"}
+                            ];
+    // WSCoachMarksViewオブジェクトの作成
+    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
+    // 親ビューに追加
+    [self.view addSubview:coachMarksView];
+    // コーチマークを表示する
+    [coachMarksView start];
 
     
 }
@@ -110,6 +125,17 @@
 -(void)viewDidAppear:(BOOL)animated{
     
     [self makeImgParts];
+    
+//    // コーチマークの表示済フラグ
+//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShown"];
+//    if (coachMarksShown == NO) {
+//        // 表示済フラグに「YES」を設定、次回からはコーチマークを表示しない
+//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShown"];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//        
+//        // コーチマークをn秒後に表示する
+//        // [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
+    //}
 }
 
 -(void)makeImgParts{
