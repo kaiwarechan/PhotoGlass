@@ -17,8 +17,8 @@
 
 @implementation sandGlassViewController
 {
-        NSMutableArray *picImgViewArray;
-    }
+    NSMutableArray *picImgViewArray;
+}
 -(id)init
 {
     picImgViewArray = [NSMutableArray array];
@@ -37,9 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  
+    
     [ UIApplication sharedApplication ].statusBarHidden = YES;
- 
+    
     /* ---　背景画像設定 --- */
     back = [UIImage imageNamed:@"sunaset.png"];
     backView = [[UIImageView alloc] initWithImage:back];
@@ -65,7 +65,7 @@
     //[self.view addSubview:sunaImageView];
     //[self.view addSubview:upsandView];
     [self.view addSubview:sunaImageView];
-
+    
     //端末回転通知の開始
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -85,58 +85,37 @@
     __weak typeof(self) weakSelf = self;
     
     [_library addAssetsGroupAlbumWithName:_AlbumName
-          resultBlock: ^(ALAssetsGroup *group) {
-              // アルバムが既に存在する場合、group には nil が入る
-               if (group == nil) {
-                   NSLog(@"もうあるよ");
-                                                        return;
-                                                  }
-              
-                                              // Strong 参照させる（ブロックの最後まで値がキープされるようにするために）
-                                                __strong typeof(self) strongSelf = weakSelf;
-              
-                                                strongSelf->_groupURL = [group valueForProperty:ALAssetsGroupPropertyURL];
-                                                NSLog(@"作ったよ");
-                                            }
-                                      failureBlock:nil];
+                              resultBlock: ^(ALAssetsGroup *group) {
+                                  // アルバムが既に存在する場合、group には nil が入る
+                                  if (group == nil) {
+                                      NSLog(@"もうあるよ");
+                                      return;
+                                  }
+                                  
+                                  // Strong 参照させる（ブロックの最後まで値がキープされるようにするために）
+                                  __strong typeof(self) strongSelf = weakSelf;
+                                  
+                                  strongSelf->_groupURL = [group valueForProperty:ALAssetsGroupPropertyURL];
+                                  NSLog(@"作ったよ");
+                              }
+                             failureBlock:nil];
     
-    WSCoachMarksView *coachMarksView;
     
-    // コーチマークの設定内容配列を作成
-    // コーチマーク毎にカットアウトの位置（CGRect）とキャプション（NSString）のディクショナリ
-    NSArray *coachMarks = @[
-                            @{@"rect": [NSValue valueWithCGRect:(CGRect){{0,0},{0,0}}], @"caption": @"はじめまして。あなたの思い出をよみがえらせます"}
-                            ];
-    // WSCoachMarksViewオブジェクトの作成
-    coachMarksView = [[WSCoachMarksView alloc] initWithFrame:self.view.bounds coachMarks:coachMarks];
-    // 親ビューに追加
-    [self.view addSubview:coachMarksView];
-    // コーチマークを表示する
-    [coachMarksView start];
-
     
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+    
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     
     [self makeImgParts];
     
-//    // コーチマークの表示済フラグ
-//    BOOL coachMarksShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"WSCoachMarksShown"];
-//    if (coachMarksShown == NO) {
-//        // 表示済フラグに「YES」を設定、次回からはコーチマークを表示しない
-//        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WSCoachMarksShown"];
-//        [[NSUserDefaults standardUserDefaults] synchronize];
-//        
-//        // コーチマークをn秒後に表示する
-//        // [coachMarksView performSelector:@selector(start) withObject:nil afterDelay:1.0f];
-    //}
-}
+    }
 
 -(void)makeImgParts{
     
@@ -146,16 +125,16 @@
     if(begin== nil){
         begin = [NSDate date]; //使い始めた日にちをbeginにいれる
         [[NSUserDefaults standardUserDefaults] setObject:begin forKey:@"begin"]; //開始時刻を保存
-        }
+    }
     
-// 削除する
+    // 削除する
     for (int i = (int)picImgViewArray.count - 1; i >= 0; i--) {
-                [picImgViewArray[i] removeFromSuperview];
+        [picImgViewArray[i] removeFromSuperview];
         [picImgViewArray[i] removeFromSuperview];
     }
     
     [picImgViewArray removeAllObjects];
-
+    
     /* --- 写真 --- */
     ALAssetsLibrary *assetsLibrary = [[ALAssetsLibrary alloc] init];
     
@@ -163,7 +142,7 @@
                                  usingBlock:^(ALAssetsGroup *group, BOOL *stop)
      {
          NSMutableArray *array = [[NSMutableArray alloc] init];
-
+         
          //NSLog(@"number %d",(int)[group numberOfAssets]);
          //NSLog(@"group is %@",group);
          //[[self.view subviews]
@@ -216,20 +195,17 @@
                               
                               int x = 0; //x座標
                               int y = 0;
-                              int kosuu = 41-i;
-                              //int m;
-                              //MAX(40, m);
-                              
-                              double n = pow(-1, i);  //-1をi乗した数をresultにいれる
-                              NSLog(@"個数　%d",kosuu);
-                              if(kosuu==0){
+                            
+                            double n = pow(-1, i);  //-1をi乗した数をresultにいれる
+
+                              if(i==0){
                                   picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 505, 24, 24)];
                                   
                                   NSLog(@"i %d",i);
                               }
                               
                               
-                              else if(0<kosuu && kosuu<=4){
+                              else if(0<i && i<=4){
                                   for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
                                   {
                                       NSLog(@"ww %d",(int)[group numberOfAssets]);
@@ -247,7 +223,7 @@
                               
                               
                               
-                              else if(4<kosuu && kosuu<=6){
+                              else if(4<i && i<=6){
                                   for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
                                   {
                                       NSLog(@"i %d",i);
@@ -268,12 +244,12 @@
                               
                               //2段目
                               
-                              else if(kosuu==7){
+                              else if(i==7){
                                   picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 475, 24, 24)];
                                   NSLog(@"i %d",i);
                               }
                               
-                              else if(7<kosuu && kosuu<=11){
+                              else if(7<i && i<=11){
                                   for (i = (int)[group numberOfAssets]-p-35; i <=(int)[group numberOfAssets]-p-35; i++)
                                   {
                                       

@@ -4,9 +4,9 @@
 <dict>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>PhotoGlass_icon58.png</string>
-		<string>PhotoGlass_icon80.png</string>
-		<string>PhotoGlass_icon120.png</string>
+		<string>icon58</string>
+		<string>icon80</string>
+		<string>icon120</string>
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
