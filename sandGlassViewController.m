@@ -231,40 +231,41 @@
                               double n = pow(-1, i);  //-1をi乗した数をresultにいれる
                               
                               if(i==0){
-                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 505, 24, 24)];
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 515, 24, 24)];
                                   
                                   NSLog(@"i %d",i);
                               }
                               
                               
                               else if(0<i && i<=4){
-                                  for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
+                                  for (i = (int)[group numberOfAssets]-p-6; i <=(int)[group numberOfAssets]-p-6; i++)
                                   {
                                       NSLog(@"ww %d",(int)[group numberOfAssets]);
                                       NSLog(@"p %d",p);
                                       NSLog(@"i %d",i);
                                       NSLog(@"おーい");
-                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      x = 148 +26 *(i/2 + i%2)*n;
+                                      y = 515+(i-1)/2*4;
                                       NSLog(@"x is %d",x);
                                       //[array addObject:[NSNumber numberWithInteger:x]];
                                       
                                       
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 505, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
                               }
                               
                               
                               
                               else if(4<i && i<=6){
-                                  for (i = (int)[group numberOfAssets]-p-42; i <=(int)[group numberOfAssets]-p-42; i++)
+                                  for (i = (int)[group numberOfAssets]-p-1; i <=(int)[group numberOfAssets]-p-1; i++)
                                   {
                                       NSLog(@"i %d",i);
                                       
                                       x = 148 +24 *(i/2 + i%2)*n;
-                                      
+                                      y = 500-(i-1)/2*4;
                                       //[array addObject:[NSNumber numberWithInteger:x]];
                                       
-                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, 495, 24, 24)];
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
                               }
                               
@@ -282,7 +283,7 @@
                               }
                               
                               else if(7<i && i<=11){
-                                  for (i = (int)[group numberOfAssets]-p-35; i <=(int)[group numberOfAssets]-p-35; i++)
+                                  for (i = (int)[group numberOfAssets]-p-6; i <=(int)[group numberOfAssets]-p-6; i++)
                                   {
                                       
                                       NSLog(@"ww %d",(int)[group numberOfAssets]);

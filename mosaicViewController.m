@@ -50,6 +50,7 @@
         facebookButton.hidden = YES;
         twitterButton.hidden = YES;
     }
+    
     // ===============================================
     /* --- ステータスバー消す　---*/
     if( [ UIApplication sharedApplication ].isStatusBarHidden == NO ) {
