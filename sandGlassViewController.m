@@ -11,6 +11,8 @@
 #import "mosaicViewController.h"
 #import "UIImage+GIF.h"
 #import "WSCoachMarksView.h"
+#import "ELCImagePickerController.h"
+#import "ELCAlbumPickerController.h"
 
 @interface sandGlassViewController ()
 @end
@@ -54,6 +56,10 @@
      upsandView.frame = CGRectMake(58, 141, 200, 144);
      */
     
+    /*tyu1 = [UIImage imageNamed:@"tyu1.png"];
+     tyu1View = [[UIImag]
+     
+     */
     
     //gifアニメーション
     UIImage *sunaImage = [UIImage animatedGIFNamed:@"砂"];
@@ -79,30 +85,55 @@
     _pickerController.delegate = self;
     _pickerController.allowsEditing = YES;
     
-    AlbumSandName = @"Mosaic";
+    _AlbumName = @"PhotoGlass";
+    _albumWasFound = FALSE;
     
     // Weak 参照を持つ
     __weak typeof(self) weakSelf = self;
     
+    
     [_library addAssetsGroupAlbumWithName:_AlbumName
                               resultBlock: ^(ALAssetsGroup *group) {
                                   // アルバムが既に存在する場合、group には nil が入る
+                                  
                                   if (group == nil) {
                                       NSLog(@"もうあるよ");
                                       return;
-                                  }
-                                  
+                                  } NSLog(@"動いてる");
                                   // Strong 参照させる（ブロックの最後まで値がキープされるようにするために）
                                   __strong typeof(self) strongSelf = weakSelf;
                                   
                                   strongSelf->_groupURL = [group valueForProperty:ALAssetsGroupPropertyURL];
-                                  NSLog(@"作ったよ");
-                              }
+                                  }
                              failureBlock:nil];
     
     
     
 }
+
+
+/* ---- PhotoGlassフォルダに画像追加する ----*/
+//きちんと選んだとき
+- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    if ([info count] < 1) {
+        return;
+    }
+    
+    UIImage *image;
+    for (NSMutableDictionary *item in info) {
+        image = [item objectForKey:UIImagePickerControllerOriginalImage];
+    }
+    
+    
+}
+//キャンセルしたとき
+- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -115,7 +146,7 @@
     
     [self makeImgParts];
     
-    }
+}
 
 -(void)makeImgParts{
     
@@ -195,9 +226,9 @@
                               
                               int x = 0; //x座標
                               int y = 0;
-                            
-                            double n = pow(-1, i);  //-1をi乗した数をresultにいれる
-
+                              
+                              double n = pow(-1, i);  //-1をi乗した数をresultにいれる
+                              
                               if(i==0){
                                   picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 505, 24, 24)];
                                   

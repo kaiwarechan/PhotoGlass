@@ -40,7 +40,7 @@
     NSString *AlbumSandName;
     NSString *_AlbumName;
     NSString *_orientation;
-    
+    NSString *_albumWasFound;
     UIImagePickerController *_pickerController;
     
     ALAssetsLibrary *_library;
