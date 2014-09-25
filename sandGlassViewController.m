@@ -104,6 +104,7 @@
                                   __strong typeof(self) strongSelf = weakSelf;
                                   
                                   strongSelf->_groupURL = [group valueForProperty:ALAssetsGroupPropertyURL];
+                                  
                                   }
                              failureBlock:nil];
     
