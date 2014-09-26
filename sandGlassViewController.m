@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 梶原 一葉. All rights reserved.
 //
 
+//一番新しいやつうううういやほおおおおお
+
+
 #import "sandGlassViewController.h"
 #import "Image.h"
 #import "mosaicViewController.h"
@@ -36,40 +39,28 @@
     return self;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [ UIApplication sharedApplication ].statusBarHidden = YES;
+    
     
     /* ---　背景画像設定 --- */
     back = [UIImage imageNamed:@"sunaset.png"];
     backView = [[UIImageView alloc] initWithImage:back];
     backView.frame = CGRectMake(0, 0, 320, 568);
-    /*
-     suna = [UIImage imageNamed:@"sunadokei.png"];
-     sunaView = [[UIImageView alloc] initWithImage:suna];
-     sunaView.frame = CGRectMake(45, 42, 230,490);
-     */
-    /*upsand = [UIImage imageNamed:@"sand_white.png"];
-     upsandView = [[UIImageView alloc] initWithImage:upsand];
-     upsandView.frame = CGRectMake(58, 141, 200, 144);
-     */
-    
-    /*tyu1 = [UIImage imageNamed:@"tyu1.png"];
-     tyu1View = [[UIImag]
-     
-     */
     
     //gifアニメーション
     UIImage *sunaImage = [UIImage animatedGIFNamed:@"砂"];
     sunaImageView = [[UIImageView alloc] initWithImage:sunaImage];
-    sunaImageView.frame = CGRectMake(159, 286, 5, 128);
+    sunaImageView.frame = CGRectMake(158, 275, 5, 128);
     
     [self.view addSubview:backView];
-    //[self.view addSubview:sunaView];
-    //[self.view addSubview:sunaImageView];
-    //[self.view addSubview:upsandView];
     [self.view addSubview:sunaImageView];
     
     //端末回転通知の開始
@@ -90,8 +81,7 @@
     
     // Weak 参照を持つ
     __weak typeof(self) weakSelf = self;
-    
-    
+        _library = [[ALAssetsLibrary alloc] init];
     [_library addAssetsGroupAlbumWithName:_AlbumName
                               resultBlock: ^(ALAssetsGroup *group) {
                                   // アルバムが既に存在する場合、group には nil が入る
@@ -104,16 +94,18 @@
                                   __strong typeof(self) strongSelf = weakSelf;
                                   
                                   strongSelf->_groupURL = [group valueForProperty:ALAssetsGroupPropertyURL];
+                                  ELCAlbumPickerController *albumController = [[ELCAlbumPickerController alloc] init];
+                                  ELCImagePickerController *elcPickerController = [[ELCImagePickerController alloc] initWithRootViewController:albumController];
+                                  [albumController setParent:elcPickerController];
+                                  [elcPickerController setImagePickerDelegate:self];
                                   
-                                  }
+                                  [self presentViewController:elcPickerController animated:YES completion:nil];
+                              }
                              failureBlock:nil];
-    
-    
-    
 }
 
 
-/* ---- PhotoGlassフォルダに画像追加する ----*/
+/* ---- PhotoGlassフォルダに画像追加する ---- */
 //きちんと選んだとき
 - (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info
 {
@@ -148,6 +140,8 @@
     [self makeImgParts];
     
 }
+ 
+
 
 -(void)makeImgParts{
     
@@ -162,7 +156,7 @@
     // 削除する
     for (int i = (int)picImgViewArray.count - 1; i >= 0; i--) {
         [picImgViewArray[i] removeFromSuperview];
-        [picImgViewArray[i] removeFromSuperview];
+        //[picImgViewArray[i] removeFromSuperview];
     }
     
     [picImgViewArray removeAllObjects];
@@ -278,12 +272,12 @@
                               //2段目
                               
                               else if(i==7){
-                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 475, 24, 24)];
+                                  picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 488, 24, 24)];
                                   NSLog(@"i %d",i);
                               }
                               
-                              else if(7<i && i<=11){
-                                  for (i = (int)[group numberOfAssets]-p-6; i <=(int)[group numberOfAssets]-p-6; i++)
+                              else if(7<i && i<=9){
+                                  for (i = (int)[group numberOfAssets]-p-8; i <=(int)[group numberOfAssets]-p-8; i++)
                                   {
                                       
                                       NSLog(@"ww %d",(int)[group numberOfAssets]);
@@ -291,16 +285,28 @@
                                       NSLog(@"i %d",i);
                                       
                                       x = 148 +24 *(i/2 + i%2)*n;
-                                      y = 473+(i-1)/2*(-3);
+                                      y = 484.5+(i-1)/2*0;
                                       NSLog(@"y %d",y);
                                       
                                       picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
                                   }
                               }
-                              
-                              
-                              /*
-                               
+                              else if(9<i && i<=11){
+                                  for (i = (int)[group numberOfAssets]-p-8; i <=(int)[group numberOfAssets]-p-8; i++)
+                                  {
+                                      
+                                      NSLog(@"ww %d",(int)[group numberOfAssets]);
+                                      NSLog(@"p %d",p);
+                                      NSLog(@"i %d",i);
+                                      
+                                      x = 148 +24 *(i/2 + i%2)*n;
+                                      y = 481+(i-1)/2*0;
+                                      NSLog(@"y %d",y);
+                                      
+                                      picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(x, y, 24, 24)];
+                                  }
+                              }
+ 
                                //3段目
                                else if(i==21){
                                picImgView = [[UIImageView alloc] initWithFrame:CGRectMake(148, 450, 24, 24)];
@@ -344,7 +350,7 @@
                                
                                
                                
-                               
+                              /*
                                
                                //4段目
                                else if(i==12){
@@ -487,6 +493,11 @@
     CALayer *layer = picImgView.layer;
     layer.masksToBounds = YES;
     layer.cornerRadius = 12.0f;
+    
+    UIImage *maruue = [UIImage imageNamed:@"sunadokei.png"];
+    UIImageView *maruueView = [[UIImageView alloc] initWithImage:maruue];
+    maruueView.frame = CGRectMake(45, 42, 230,490);
+    
     
     [picImgView.layer setBorderWidth:1.0];
     [picImgView.layer setBorderColor:[[UIColor whiteColor] CGColor]];

@@ -35,6 +35,11 @@
     return self;
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad
 
 {
@@ -49,12 +54,6 @@
         // Twitter,Facebook連携はiOS6.0以降
         facebookButton.hidden = YES;
         twitterButton.hidden = YES;
-    }
-    
-    // ===============================================
-    /* --- ステータスバー消す　---*/
-    if( [ UIApplication sharedApplication ].isStatusBarHidden == NO ) {
-        [ UIApplication sharedApplication ].statusBarHidden = YES;
     }
     
     
@@ -130,7 +129,7 @@
     
     UIImage *shakeImage = [UIImage imageNamed:@"shake.png"];
     shakeImageView = [[UIImageView alloc] initWithImage:shakeImage];
-    CGRect shakeRect = CGRectMake(40, 416, 240, 62);
+    CGRect shakeRect = CGRectMake(40, 440, 240, 62);
     shakeImageView.frame = shakeRect;
     [self.view addSubview:shakeImageView];
     
@@ -153,7 +152,7 @@
 
 //モザイクアートを作成する
 -(void)makeMosaic{
-    imgView.image = [Image resize:imgView.image rect:CGRectMake(0,0,30,30)];
+    imgView.image = [Image resize:imgView.image rect:CGRectMake(0,0,40,40)];
     
     //モザイクアートの元画像の各ピクセルの色情報をpixelArrに格納する
     [self pixelRGB:imgView.image];
@@ -302,7 +301,7 @@
 -(void)makeMozaiku{
     int imageWidth = imgView.image.size.width;//元画像の横のピクセル値
     int imageHeight = imgView.image.size.height;//元画像の縦のピクセル値
-    int pixelSize = 300/imgView.image.size.width;//ピクセルの大きさ
+    int pixelSize = 320/imgView.image.size.width;//ピクセルの大きさ
     //各ピクセルを類似したカメラロールの画像に置き換える
     for (int i=0; i<imageWidth*imageHeight; i++) {
         float min_value = 999;
@@ -337,7 +336,7 @@
                 //表示させるためにUIImageViewを作成
                 UIImageView *imageView = [[UIImageView alloc] init];
                 //UIImageViewのサイズと位置を設定
-                imageView.frame = CGRectMake(x+10,y+108 ,pixelSize,pixelSize);
+                imageView.frame = CGRectMake(x+0,y+110 ,pixelSize,pixelSize);
                 imageView.image = image;
                 //画面に貼り付ける
                 [self.view addSubview:imageView];
@@ -349,29 +348,29 @@
         
     }
     
-    // Sub view がいくつあるか表示する
-    NSLog(@"Number of subviews: %lu", (unsigned long)self.view.subviews.count);
-    
- 
-    
     // Cross Dissolve のアニメーションを加える。
     [UIView transitionWithView:self.view
-          duration:3
-          options:UIViewAnimationOptionTransitionCrossDissolve
-          animations:^{
-              [self save];
-              }
-         completion:nil];
+                      duration:3
+                       options:UIViewAnimationOptionTransitionCrossDissolve
+                    animations:^{
+                        [self save];
+                    }
+                    completion:nil];
+    
+    // Sub view がいくつあるか表示する
+    NSLog(@"Number of subviews: %lu", (unsigned long)self.view.subviews.count);
+
+
     
 }
 
 - (UIImage *)captureView {
     
-    UIGraphicsBeginImageContext(CGSizeMake(300, 300));
+    UIGraphicsBeginImageContext(CGSizeMake(320, 320));
     //UIGraphicsBeginImageContext(CGRectMake(10, 48, 300, 300));
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CGAffineTransform affine = CGAffineTransformMakeTranslation(-10,-108);
+    CGAffineTransform affine = CGAffineTransformMakeTranslation(0,-110);
     CGContextConcatCTM(context, affine);
     [self.view.layer renderInContext:context];
     captureImg = UIGraphicsGetImageFromCurrentImageContext();
@@ -398,10 +397,7 @@
 //モーション終了時に実行
 - (void)motionBegan:(UIEventSubtype)motion withEvent:(UIEvent *)event
 {
-   
-    
-    
-    
+ 
     if (isAlreadyFlick) {
         return;
     }
@@ -411,8 +407,8 @@
     
     [self makeMosaic];
     
-    UIImage *backButtonImage = [UIImage imageNamed:@"batsu.png"];
-    backButton = [[UIButton alloc] initWithFrame:CGRectMake(262, 60, 25, 25)];
+    UIImage *backButtonImage = [UIImage imageNamed:@"yazirushi.png"];
+    backButton = [[UIButton alloc] initWithFrame:CGRectMake(16, 52, 35, 30)];
     
     [backButton setBackgroundImage:backButtonImage forState:UIControlStateNormal];  // 画像をセットする
     
@@ -422,7 +418,7 @@
     
     
     UIImage *twButtonImage = [UIImage imageNamed:@"Twitter.png"];
-    twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 435, 60, 60)];
+    twitterButton = [[UIButton alloc] initWithFrame:CGRectMake(130, 469, 60, 60)];
     
     [twitterButton setBackgroundImage:twButtonImage forState:UIControlStateNormal];  // 画像をセットする
     
@@ -430,7 +426,7 @@
     [self.view addSubview:twitterButton];
     
     UIImage *fbButtonImage = [UIImage imageNamed:@"Facebook.png"];
-    facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(46, 435, 60, 60)];
+    facebookButton = [[UIButton alloc] initWithFrame:CGRectMake(38, 469, 60, 60)];
     
     [facebookButton setBackgroundImage:fbButtonImage forState:UIControlStateNormal];  // 画像をセットする
     
@@ -438,16 +434,13 @@
     [self.view addSubview:facebookButton];
     
     UIImage *lnButtonImage = [UIImage imageNamed:@"LINE.png"];
-    lineButton = [[UIButton alloc] initWithFrame:CGRectMake(216, 435, 60, 60)];
+    lineButton = [[UIButton alloc] initWithFrame:CGRectMake(220, 469, 60, 60)];
     
     [lineButton setBackgroundImage:lnButtonImage forState:UIControlStateNormal];  // 画像をセットする
     
     [lineButton addTarget:self action:@selector(lineButton:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:lineButton];
-    
-    
-    
-    
+
     isAlreadyFlick = YES;
     
 }
@@ -503,8 +496,7 @@
             }
         }
          ];
-        
-        
+
         //SLComposeViewControllerのViewを表示
         [self presentViewController:twitterpostVC animated:YES completion:nil];
         
